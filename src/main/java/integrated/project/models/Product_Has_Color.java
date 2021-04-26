@@ -1,34 +1,43 @@
 package integrated.project.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
 @IdClass(ProductHasColorId.class)
 public class Product_Has_Color {
+  @Column(name = "Product_ProdId")
   @Id
-  private String product_ProdId;
+  private String productProdId;
+  @Column(name = "Color_ColorId")
   @Id
-  private String color_ColorId;
+  private String colorColorId;
+//  @EmbeddedId
+//  private ProductHasColorId ProducthasColorId;
   private long quantity;
 
+//  public ProductHasColorId getProducthasColorId() {
+//    return ProducthasColorId;
+//  }
+//
+//  public void setProducthasColorId(ProductHasColorId producthasColorId) {
+//    ProducthasColorId = producthasColorId;
+//  }
 
   public String getProductProdId() {
-    return product_ProdId;
+    return productProdId;
   }
 
   public void setProductProdId(String productProdId) {
-    this.product_ProdId = productProdId;
+    this.productProdId = productProdId;
   }
 
 
   public String getColor_ColorId() {
-    return color_ColorId;
+    return colorColorId;
   }
 
   public void setColor_ColorId(String colorColorId) {
-    this.color_ColorId = colorColorId;
+    this.colorColorId = colorColorId;
   }
 
 

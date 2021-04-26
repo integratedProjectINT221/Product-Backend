@@ -17,15 +17,26 @@ public class ProductsHasColorsRestController {
     @Autowired
     ProductsHasColorsJpaRepository ProductsHasColorsJpaRepository;
 
-    @GetMapping("/productsHasColors/{id}")
-    public Product_Has_Color show(@PathVariable String id) {
+    @GetMapping("/productsHasColors/{prodId}/{colorId}")
+    public List<Product_Has_Color> showByProdIdAndColorId(@PathVariable String prodId,@PathVariable String colorId) {
 
-        return ProductsHasColorsJpaRepository.findById(id).orElse(null);
+//        return ProductsHasColorsJpaRepository.findById(id).orElse(null);
 //        (Product_Has_Color) ProductsHasColorsJpaRepository.findByproduct_ProdIdcolor_ColorId(id);
+        return ProductsHasColorsJpaRepository.findByproductProdIdAndColorColorId(prodId,colorId);
     }
 
     @GetMapping("/productsHasColors")
     public List<Product_Has_Color> allProducts(){
         return ProductsHasColorsJpaRepository.findAll();
     }
+
+
+    @GetMapping("/productsHasColors/{prodId}")
+    public List<Product_Has_Color> showByProdId(@PathVariable String prodId) {
+
+//        return ProductsHasColorsJpaRepository.findById(id).orElse(null);
+//        (Product_Has_Color) ProductsHasColorsJpaRepository.findByproduct_ProdIdcolor_ColorId(id);
+        return ProductsHasColorsJpaRepository.findByproductProdId(prodId);
+    }
+
 }
