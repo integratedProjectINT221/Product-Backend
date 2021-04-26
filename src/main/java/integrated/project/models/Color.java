@@ -3,12 +3,14 @@ package integrated.project.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Color {
   @Id
   private String colorId;
   private String colorName;
+
 
 
   public String getColorId() {

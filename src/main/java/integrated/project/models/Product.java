@@ -1,9 +1,7 @@
 package integrated.project.models;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
@@ -16,7 +14,17 @@ public class Product {
   @Column(name = "brand_BrandId")
   private String brandBrandId;
   private String image;
+  @ManyToOne
+  @JoinColumn(name = "Brand_BrandId")
+  private Brand brand;
 
+//  public Brand getBrand() {
+//    return brand;
+//  }
+//
+//  public void setBrand(Brand brand) {
+//    this.brand = brand;
+//  }
 
   public String getProdId() {
     return prodId;
@@ -71,4 +79,11 @@ public class Product {
     this.image = image;
   }
 
+//  public Brand getBrand() {
+//    return brand;
+//  }
+
+//  public void setBrand(Brand brand) {
+//    this.brand = brand;
+//  }
 }

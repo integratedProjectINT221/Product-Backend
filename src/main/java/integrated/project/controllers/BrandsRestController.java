@@ -17,7 +17,7 @@ public class BrandsRestController {
     @Autowired
     BrandsJpaRepository BrandsJpaRepository;
 
-    @GetMapping("/brands{id}")
+    @GetMapping("/brands/{id}")
     public Brand show(@PathVariable String id) {
 
         return BrandsJpaRepository.findById(id).orElse(null);
