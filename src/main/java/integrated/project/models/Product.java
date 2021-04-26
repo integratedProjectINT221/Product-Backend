@@ -15,7 +15,7 @@ public class Product {
   private String brandBrandId;
   private String image;
   @ManyToOne
-  @JoinColumn(name = "Brand_BrandId")
+  @JoinColumn(name = "Brand_BrandId",insertable = false,updatable = false)
   private Brand brand;
 
 //  public Brand getBrand() {
