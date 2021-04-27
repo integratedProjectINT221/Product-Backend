@@ -13,6 +13,7 @@ public class Product_Has_Color {
 //  @Id
 //  private String colorColorId;
   @EmbeddedId
+//  @GeneratedValue(strategy=GenerationType.IDENTITY)
   private Product_Has_ColorId Product_Has_ColorId;
 
   @ManyToOne

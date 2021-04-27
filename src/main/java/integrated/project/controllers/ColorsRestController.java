@@ -1,10 +1,9 @@
 package integrated.project.controllers;
 
+import integrated.project.models.Product;
+import integrated.project.models.Product_Has_Color;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import integrated.project.repositories.ColorsJpaRepository;
 //import integrated.project.models.Products;
 import integrated.project.models.Color;
@@ -26,5 +25,10 @@ public class ColorsRestController {
     @GetMapping("/colors")
     public List<Color> allProducts(){
         return ColorsJpaRepository.findAll();
+    }
+
+    @PostMapping("/colors")
+    public Color addProduct(@RequestBody Color product){
+        return ColorsJpaRepository.save(product);
     }
 }

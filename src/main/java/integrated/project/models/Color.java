@@ -1,13 +1,12 @@
 package integrated.project.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Color {
   @Id
+  @GeneratedValue(strategy= GenerationType.IDENTITY)
   private String colorId;
   private String colorName;
 
