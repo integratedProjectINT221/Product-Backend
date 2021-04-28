@@ -1,32 +1,35 @@
 package integrated.project.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import integrated.project.Entitys.Color;
+import integrated.project.Entitys.Product;
+
+
 import org.springframework.web.bind.annotation.*;
 import integrated.project.repositories.ColorsJpaRepository;
 //import integrated.project.models.Products;
-import integrated.project.models.Color;
+import integrated.project.models.ColorModel;
 
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8082"})
+
 @RestController
 public class ColorsRestController {
-    @Autowired
-    ColorsJpaRepository ColorsJpaRepository;
+    private ColorsJpaRepository colorsJpaRepository;
 
-    @GetMapping("/colors/{id}")
-    public Color show(@PathVariable String id) {
-
-        return ColorsJpaRepository.findById(id).orElse(null);
+    public ColorsRestController(ColorsJpaRepository colorsJpaRepository) {
+        this.colorsJpaRepository = colorsJpaRepository;
     }
 
     @GetMapping("/colors")
-    public List<Color> allProducts(){
-        return ColorsJpaRepository.findAll();
+    public List<Color> getColors() {
+        return colorsJpaRepository.findAll();
     }
 
-    @PostMapping("/colors")
-    public Color addProduct(@RequestBody Color product){
-        return ColorsJpaRepository.save(product);
-    }
+//    @PostMapping("/colors")
+//    public Color addColor(@RequestBody Color color){
+//        return this.colorsJpaRepository.save(color);
+//    }
 }
