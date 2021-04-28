@@ -27,5 +27,7 @@ public class ProductsRestController {
     public Product addProduct(@RequestBody Product product){
         return this.productsJpaRepository.save(product);
     }
+
+
 }
 

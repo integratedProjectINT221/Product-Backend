@@ -24,8 +24,8 @@ public class ColorsRestController {
         return colorsJpaRepository.findAll();
     }
 
-    @PostMapping("/colors")
-    public Color addColor(@RequestBody Color color){
-        return this.colorsJpaRepository.save(color);
-    }
+//    @PostMapping("/colors")
+//    public Color addColor(@RequestBody Color color){
+//        return this.colorsJpaRepository.save(color);
+//    }
 }

@@ -1,20 +1,40 @@
 package integrated.project.Entitys;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name= "products")
+//@JsonIdentityInfo(
+//
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//
+//        property = "prodId")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String prodId;
     private String prodName;
     private String description;
     private double price;
     private Date date;
     private String image;
+    @ManyToOne
+    @JoinColumn(name = "brands_brandId",nullable = false)
+    private Brand brand;
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
 
     @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
 //    @JoinTable(
@@ -22,6 +42,7 @@ public class Product {
 //            joinColumns=
 //            @JoinColumn( name="Products_ProdId", referencedColumnName="ProdId"),
 //            inverseJoinColumns=@JoinColumn(name="Colors_ColorId", referencedColumnName="ColorId"))
+
     private List<Color> colors;
 
 
