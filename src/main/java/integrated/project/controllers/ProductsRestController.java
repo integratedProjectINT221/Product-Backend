@@ -1,9 +1,10 @@
 package integrated.project.controllers;
 
 //import integrated.project.models.Color;
-import integrated.project.models.Product;
+import integrated.project.Entitys.Product;
+import integrated.project.models.ProductModel;
 import integrated.project.repositories.ProductsJpaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,22 +12,20 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:8082"})
 @RestController
 public class ProductsRestController {
-    @Autowired
-    ProductsJpaRepository ProductsJpaRepository;
+    private ProductsJpaRepository productsJpaRepository;
 
-    @GetMapping("/products/{id}")
-    public Product show(@PathVariable String id) {
-
-        return ProductsJpaRepository.findById(id).orElse(null);
+    public ProductsRestController(ProductsJpaRepository productsJpaRepository) {
+        this.productsJpaRepository = productsJpaRepository;
     }
-
     @GetMapping("/products")
-    public List<Product> allProducts(){
-        return ProductsJpaRepository.findAll();
+    public List<Product> getProducts() {
+        return productsJpaRepository.findAll();
     }
+
 
     @PostMapping("/products")
-    public  Product addProduct(@RequestBody Product product){
-        return ProductsJpaRepository.save(product);
+    public Product addProduct(@RequestBody Product product){
+        return this.productsJpaRepository.save(product);
     }
 }
+
