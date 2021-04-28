@@ -1,3 +1,4 @@
+
 package integrated.project.controllers;
 
 import integrated.project.Entitys.Brand;
@@ -26,3 +27,4 @@ public class BrandsRestController {
         return this.brandsJpaRepository.findAll();
     }
 }
+
