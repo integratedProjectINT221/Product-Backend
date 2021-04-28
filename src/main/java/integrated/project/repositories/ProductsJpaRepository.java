@@ -5,6 +5,8 @@ import integrated.project.models.ProductModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductsJpaRepository extends JpaRepository<Product,String> {
+import java.util.List;
 
+public interface ProductsJpaRepository extends JpaRepository<Product,String> {
+    List<Product> findByBrandBrandId(String prodId);
 }

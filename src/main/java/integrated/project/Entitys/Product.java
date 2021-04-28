@@ -2,6 +2,7 @@ package integrated.project.Entitys;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.List;
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //
 //        property = "prodId")
+//@JsonIgnoreProperties(value = "brand")
 public class Product {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +28,7 @@ public class Product {
     private String image;
     @ManyToOne
     @JoinColumn(name = "brands_brandId",nullable = false)
+
     private Brand brand;
 
     public Brand getBrand() {

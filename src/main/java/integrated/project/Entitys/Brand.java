@@ -1,11 +1,12 @@
 package integrated.project.Entitys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
-
+//@JsonIgnoreProperties(value = "products")
 @Entity
 @Table(name="brands")
 public class Brand{
@@ -13,20 +14,20 @@ public class Brand{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String brandId;
     private String brandName;
-//    @OneToMany(mappedBy="brand",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    private Set<Product> products;
+    @OneToMany(mappedBy="brand",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Product> products;
     public String getBrandId() {
         return brandId;
     }
 
-//    public Set<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(Set<Product> products) {
-//        this.products = products;
-//    }
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
 
     public void setBrandId(String brandId) {
         this.brandId = brandId;
