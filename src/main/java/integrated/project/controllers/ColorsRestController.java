@@ -1,7 +1,5 @@
 package integrated.project.controllers;
 
-import integrated.project.models.Product;
-import integrated.project.models.Product_Has_Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import integrated.project.repositories.ColorsJpaRepository;
@@ -9,7 +7,7 @@ import integrated.project.repositories.ColorsJpaRepository;
 import integrated.project.models.Color;
 
 import java.util.List;
-import java.util.Optional;
+
 @CrossOrigin(origins = {"http://localhost:8082"})
 @RestController
 public class ColorsRestController {

@@ -6,4 +6,5 @@ import integrated.project.models.Color;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductsJpaRepository extends JpaRepository<Product,String> {
+
 }

@@ -1,25 +1,31 @@
 package integrated.project.models;
 
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
+import java.util.*;
+
 
 @Entity
+@Table(name = "color")
+
 public class Color {
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private String colorId;
+  private int ColorId;
   private String colorName;
+  @OneToMany(targetEntity = Product.class,cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Collection<Product> product = new ArrayList<>();
 
-
-
-  public String getColorId() {
-    return colorId;
+  public int getColorId() {
+    return ColorId;
   }
 
-  public void setColorId(String colorId) {
-    this.colorId = colorId;
+  public void setColorId(int colorId) {
+    ColorId = colorId;
   }
-
 
   public String getColorName() {
     return colorName;
@@ -29,4 +35,11 @@ public class Color {
     this.colorName = colorName;
   }
 
+  public Collection<integrated.project.models.Product> getProduct_Colors() {
+    return product;
+  }
+
+  public void setProduct_Colors(Collection<integrated.project.models.Product> product_Colors) {
+    product = product_Colors;
+  }
 }

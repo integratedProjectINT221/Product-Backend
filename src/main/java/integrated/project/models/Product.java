@@ -1,89 +1,82 @@
 package integrated.project.models;
 
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
+import java.util.*;
 
 @Entity
-public class Product {
-  @Id
-  private String prodId;
-  private String prodName;
+@Table(name = "product")
 
+public class Product {
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @Column(name = "ProdId")
+  private int ProdId;
+  private String prodName;
   private String description;
   private double price;
   @Column(name = "brand_BrandId")
   private String brandBrandId;
   private String image;
-  @ManyToOne
-  @JoinColumn(name = "Brand_BrandId",insertable = false,updatable = false)
-  private Brand brand;
+  @OneToMany(targetEntity = Color.class,mappedBy = "product",cascade = CascadeType.ALL)
+ @JsonIgnore
+  private Collection<Color> color = new ArrayList<>();
 
-//  public Brand getBrand() {
-//    return brand;
-//  }
-//
-//  public void setBrand(Brand brand) {
-//    this.brand = brand;
-//  }
+    public int getProdId() {
+        return ProdId;
+    }
 
-  public String getProdId() {
-    return prodId;
-  }
+    public void setProdId(int prodId) {
+        ProdId = prodId;
+    }
 
-  public void setProdId(String prodId) {
-    this.prodId = prodId;
-  }
+    public String getProdName() {
+        return prodName;
+    }
 
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
+    }
 
-  public String getProdName() {
-    return prodName;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public void setProdName(String prodName) {
-    this.prodName = prodName;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public double getPrice() {
+        return price;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getBrandBrandId() {
+        return brandBrandId;
+    }
 
+    public void setBrandBrandId(String brandBrandId) {
+        this.brandBrandId = brandBrandId;
+    }
 
-  public double getPrice() {
-    return price;
-  }
+    public String getImage() {
+        return image;
+    }
 
-  public void setPrice(double price) {
-    this.price = price;
-  }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
+    public Collection<Color> getProduct_Colors() {
+        return color;
+    }
 
-  public String getBrandBrandId() {
-    return brandBrandId;
-  }
-
-  public void setBrandBrandId(String brandBrandId) {
-    this.brandBrandId = brandBrandId;
-  }
-
-
-  public String getImage() {
-    return image;
-  }
-
-  public void setImage(String image) {
-    this.image = image;
-  }
-
-//  public Brand getBrand() {
-//    return brand;
-//  }
-
-//  public void setBrand(Brand brand) {
-//    this.brand = brand;
-//  }
+    public void setProduct_Colors(Collection<Color> product_Colors) {
+        color = product_Colors;
+    }
 }
