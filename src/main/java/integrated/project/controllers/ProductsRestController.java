@@ -5,8 +5,9 @@ import integrated.project.Entitys.Product;
 import integrated.project.models.ProductModel;
 import integrated.project.repositories.ProductsJpaRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.Optional;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8082"})
@@ -28,7 +29,7 @@ public class ProductsRestController {
     }
 
     @GetMapping("/products/{id}")
-    public List<Product> getProductsById(@PathVariable String id) {
+    public Product getProductsById(@PathVariable String id) {
         return productsJpaRepository.findByProdId(id);
     }
 
