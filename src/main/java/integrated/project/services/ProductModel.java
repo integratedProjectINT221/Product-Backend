@@ -1,7 +1,5 @@
-package integrated.project.models;
+package integrated.project.services;
 
-
-import integrated.project.Entitys.Color;
 
 import java.util.List;
 

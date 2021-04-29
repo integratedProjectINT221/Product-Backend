@@ -2,12 +2,9 @@ package integrated.project.controllers;
 
 //import integrated.project.models.Color;
 import integrated.project.Entitys.Product;
-import integrated.project.models.ProductModel;
 import integrated.project.repositories.ProductsJpaRepository;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import java.util.Optional;
+
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8082"})
