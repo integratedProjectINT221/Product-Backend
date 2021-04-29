@@ -22,12 +22,13 @@ public class Color {
     private String colorId;
     private String colorName;
 
-//    @ManyToMany(targetEntity = Product.class, mappedBy = "colors", cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-//    @JsonIgnore
+    @ManyToMany(targetEntity = Product.class, mappedBy = "colors", cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+    @JsonIgnore
 
-//    private List<Product> products;
-    @OneToMany(mappedBy = "color")
-    private List<ProductsColors> products = new ArrayList<>();
+    private List<Product> products;
+//    @OneToMany(mappedBy = "color")
+//    @JsonIgnore
+//    private List<ProductsColors> products = new ArrayList<>();
 
     public String getColorId() {
         return colorId;
@@ -45,19 +46,19 @@ public class Color {
         this.colorName = colorName;
     }
 
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(List<Product> products) {
-//        this.products = products;
-//    }
-
-    public List<ProductsColors> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductsColors> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+//    public List<ProductsColors> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<ProductsColors> products) {
+//        this.products = products;
+//    }
 }

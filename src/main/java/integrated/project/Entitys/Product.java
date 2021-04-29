@@ -41,30 +41,30 @@ public class Product {
         this.brand = brand;
     }
 
-//    @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
+    @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
 //    @JoinTable(
-//            name="products_has_colors",
+//            name="products_colors",
 //            joinColumns=
 //            @JoinColumn( name="Products_ProdId", referencedColumnName="ProdId"),
 //            inverseJoinColumns=@JoinColumn(name="Colors_ColorId", referencedColumnName="ColorId"))
+
+
+    private List<Color> colors;
+//    @OneToMany(mappedBy = "product")
 //
-
-//    private List<Color> colors;
-    @OneToMany(mappedBy = "product")
-
-    private List<ProductsColors> colors = new ArrayList<>();
+//    private List<ProductsColors> colors = new ArrayList<>();
 
     public String getProdId() {
         return prodId;
     }
 
-    public List<ProductsColors> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<ProductsColors> colors) {
-        this.colors = colors;
-    }
+//    public List<ProductsColors> getColors() {
+//        return colors;
+//    }
+//
+//    public void setColors(List<ProductsColors> colors) {
+//        this.colors = colors;
+//    }
 
     public void setProdId(String prodId) {
         this.prodId = prodId;
@@ -111,11 +111,11 @@ public class Product {
     }
 
 
-//    public List<Color> getColors() {
-//        return colors;
-//    }
-//
-//    public void setColors(List<Color> colors) {
-//        this.colors = colors;
-//    }
+    public List<Color> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<Color> colors) {
+        this.colors = colors;
+    }
 }

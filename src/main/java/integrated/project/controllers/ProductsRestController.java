@@ -27,7 +27,7 @@ public class ProductsRestController {
         return productsJpaRepository.findByBrandBrandId(id);
     }
 
-    @GetMapping("/productsById/{id}")
+    @GetMapping("/products/{id}")
     public List<Product> getProductsById(@PathVariable String id) {
         return productsJpaRepository.findByProdId(id);
     }
