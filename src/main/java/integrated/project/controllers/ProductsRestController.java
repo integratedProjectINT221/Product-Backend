@@ -32,6 +32,11 @@ public class ProductsRestController {
         return productsJpaRepository.findByProdId(id);
     }
 
+    @DeleteMapping("/products/{id}")
+    public void deleteProductsById(@PathVariable String id){
+          productsJpaRepository.deleteById(id);
+    }
+
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product){
         return this.productsJpaRepository.save(product);
