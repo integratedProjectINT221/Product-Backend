@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ProductsJpaRepository extends JpaRepository<Product,String> {
-    List<Product> findByBrandBrandId(String prodId);
+    List<Product> findByBrandBrandId(String brandId);
+    List<Product> findByProdId(String prodId);
 }

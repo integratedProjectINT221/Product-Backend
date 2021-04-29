@@ -22,9 +22,14 @@ public class ProductsRestController {
         return productsJpaRepository.findAll();
     }
 
-    @GetMapping("/products/{id}")
-    public List<Product> getProductsbyBrand(@PathVariable String id) {
+    @GetMapping("/productsByBrand/{id}")
+    public List<Product> getProductsByBrand(@PathVariable String id) {
         return productsJpaRepository.findByBrandBrandId(id);
+    }
+
+    @GetMapping("/productsById/{id}")
+    public List<Product> getProductsById(@PathVariable String id) {
+        return productsJpaRepository.findByProdId(id);
     }
 
     @PostMapping("/products")

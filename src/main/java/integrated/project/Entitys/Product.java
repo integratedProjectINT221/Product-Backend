@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class Product {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private String prodId;
     private String prodName;
     private String description;
@@ -39,18 +41,29 @@ public class Product {
         this.brand = brand;
     }
 
-    @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
+//    @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
 //    @JoinTable(
 //            name="products_has_colors",
 //            joinColumns=
 //            @JoinColumn( name="Products_ProdId", referencedColumnName="ProdId"),
 //            inverseJoinColumns=@JoinColumn(name="Colors_ColorId", referencedColumnName="ColorId"))
+//
 
-    private List<Color> colors;
+//    private List<Color> colors;
+    @OneToMany(mappedBy = "product")
 
+    private List<ProductsColors> colors = new ArrayList<>();
 
     public String getProdId() {
         return prodId;
+    }
+
+    public List<ProductsColors> getColors() {
+        return colors;
+    }
+
+    public void setColors(List<ProductsColors> colors) {
+        this.colors = colors;
     }
 
     public void setProdId(String prodId) {
@@ -98,11 +111,11 @@ public class Product {
     }
 
 
-    public List<Color> getColors() {
-        return colors;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.colors = colors;
-    }
+//    public List<Color> getColors() {
+//        return colors;
+//    }
+//
+//    public void setColors(List<Color> colors) {
+//        this.colors = colors;
+//    }
 }

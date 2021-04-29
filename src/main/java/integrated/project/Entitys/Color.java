@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "colors")
@@ -20,9 +22,12 @@ public class Color {
     private String colorId;
     private String colorName;
 
-    @ManyToMany(targetEntity = Product.class, mappedBy = "colors", cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
-    @JsonIgnore
-    private List<Product> products;
+//    @ManyToMany(targetEntity = Product.class, mappedBy = "colors", cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH})
+//    @JsonIgnore
+
+//    private List<Product> products;
+    @OneToMany(mappedBy = "color")
+    private List<ProductsColors> products = new ArrayList<>();
 
     public String getColorId() {
         return colorId;
@@ -48,4 +53,11 @@ public class Color {
 //        this.products = products;
 //    }
 
+    public List<ProductsColors> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductsColors> products) {
+        this.products = products;
+    }
 }
