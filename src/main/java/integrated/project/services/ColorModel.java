@@ -1,7 +1,4 @@
-package integrated.project.models;
-
-
-import javax.persistence.*;
+package integrated.project.services;
 
 
 public class ColorModel {

@@ -1,9 +1,7 @@
 package integrated.project.Entitys;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +24,7 @@ public class Product {
     private String prodName;
     private String description;
     private double price;
+    @JsonFormat(pattern = "yyyy.MM.dd")
     private Date date;
     private String image;
     @ManyToOne
