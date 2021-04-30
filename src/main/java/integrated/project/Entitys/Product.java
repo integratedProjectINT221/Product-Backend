@@ -24,7 +24,7 @@ public class Product {
     private String prodName;
     private String description;
     private double price;
-    @JsonFormat(pattern = "yyyy.MM.dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String image;
     @ManyToOne
