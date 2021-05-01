@@ -3,6 +3,7 @@ package integrated.project.Entitys;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "colors")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString(of = {"colorId","colorName"})
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 //@JsonIdentityInfo(
 //
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -19,6 +26,7 @@ import java.util.Set;
 public class Color {
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private String colorId;
     private String colorName;
 
@@ -30,29 +38,29 @@ public class Color {
 //    @JsonIgnore
 //    private List<ProductsColors> products = new ArrayList<>();
 
-    public String getColorId() {
-        return colorId;
-    }
-
-    public void setColorId(String colorId) {
-        this.colorId = colorId;
-    }
-
-    public String getColorName() {
-        return colorName;
-    }
-
-    public void setColorName(String colorName) {
-        this.colorName = colorName;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+//    public String getColorId() {
+//        return colorId;
+//    }
+//
+//    public void setColorId(String colorId) {
+//        this.colorId = colorId;
+//    }
+//
+//    public String getColorName() {
+//        return colorName;
+//    }
+//
+//    public void setColorName(String colorName) {
+//        this.colorName = colorName;
+//    }
+//
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 
 //    public List<ProductsColors> getProducts() {
 //        return products;
