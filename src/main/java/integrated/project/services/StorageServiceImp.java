@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import integrated.project.repositories.ProductsJpaRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,12 @@ import javax.annotation.PreDestroy;
 @Service
 public class StorageServiceImp implements StorageService{
     private final Path root;
+//    private ProductsJpaRepository productsJpaRepository;
+
 
     public StorageServiceImp(StorageProperties properties) {
         this.root = Paths.get(properties.getLocation());
+
     }
 
 
@@ -38,7 +42,15 @@ public class StorageServiceImp implements StorageService{
     @Override
     public void save(MultipartFile file) {
         try {
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+//            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
+//                System.out.println(file.getOriginalFilename());
+//                if(file.getOriginalFilename() == productsJpaRepository.findAll().get(i).getImage()){
+//                    System.out.println(productsJpaRepository.findAll().get(i).getImage());
+//                    if(productsJpaRepository.findByProdName(file.getOriginalFilename()).getImage() == file.getOriginalFilename()){
+                    Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+//                }
+//            }
+
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }

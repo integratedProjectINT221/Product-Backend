@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductsJpaRepository extends JpaRepository<Product,String> {
     List<Product> findByBrandBrandId(String brandId);
-    Product findByProdId(String prodId);
+    Product findByProdId(int prodId);
+//    Product findByProdName(String prodName);
 //    Product deleteProductByProdId(String prodId);
 }

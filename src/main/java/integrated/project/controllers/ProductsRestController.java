@@ -30,11 +30,13 @@ public class ProductsRestController {
 
     @GetMapping("/productsByBrand/{id}")
     public List<Product> getProductsByBrand(@PathVariable String id) {
+//        for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
+//        System.out.println(productsJpaRepository.findAll().get(i).getImage());}
         return productsJpaRepository.findByBrandBrandId(id);
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductsById(@PathVariable String id) {
+    public Product getProductsById(@PathVariable int id) {
         return productsJpaRepository.findByProdId(id);
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import integrated.project.models.FileInfo;
+import integrated.project.repositories.ProductsJpaRepository;
 import integrated.project.services.ResponseMessage;
 import integrated.project.services.StorageService;
 //import integrated.project.services.StorageServiceImp;
@@ -15,29 +16,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 
 
-@Controller
+@RestController
 @CrossOrigin("http://localhost:8082")
 public class FileController {
 
     @Autowired
     StorageService storageService;
+//    private ProductsJpaRepository productsJpaRepository;
 
+//    public FileController(ProductsJpaRepository productsJpaRepository) {
+//        this.productsJpaRepository = productsJpaRepository;
+//    }
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
-            storageService.save(file);
+//            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
+//                System.out.println(productsJpaRepository.findAll().get(i).getImage());
+//                System.out.println(file.getOriginalFilename());
+//                if(this.productsJpaRepository.findAll().get(i).getImage() == file.getOriginalFilename()){
+
+                    storageService.save(file);
+//                }}
+
 
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));

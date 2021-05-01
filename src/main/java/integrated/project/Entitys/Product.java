@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name= "products")
+@Table(name= "Products")
 //@JsonIdentityInfo(
 //
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -26,9 +26,9 @@ import java.util.Objects;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Product {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String prodId;
+    private int prodId;
     private String prodName;
     private String description;
     private double price;
@@ -51,11 +51,11 @@ public class Product {
 //    }
 
     @ManyToMany(targetEntity = Color.class, cascade = {CascadeType.PERSIST, CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH} )
-//    @JoinTable(
-//            name="products_colors",
-//            joinColumns=
-//            @JoinColumn( name="Products_ProdId", referencedColumnName="ProdId"),
-//            inverseJoinColumns=@JoinColumn(name="Colors_ColorId", referencedColumnName="ColorId"))
+    @JoinTable(
+            name="Products_Colors",
+            joinColumns=
+            @JoinColumn( name="Products_ProdId", referencedColumnName="ProdId"),
+            inverseJoinColumns=@JoinColumn(name="Colors_ColorId", referencedColumnName="ColorId"))
 
 
     private List<Color> colors;
