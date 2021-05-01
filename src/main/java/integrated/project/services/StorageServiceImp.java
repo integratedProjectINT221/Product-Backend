@@ -12,11 +12,21 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 @Service
 public class StorageServiceImp implements StorageService{
-    private final Path root = Paths.get("uploads");
+    private final Path root;
+
+    public StorageServiceImp(StorageProperties properties) {
+        this.root = Paths.get(properties.getLocation());
+    }
+
 
     @Override
+//    @PostConstruct
     public void init() {
         try {
             Files.createDirectory(root);
@@ -51,6 +61,7 @@ public class StorageServiceImp implements StorageService{
     }
 
     @Override
+//    @PreDestroy
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(root.toFile());
     }
