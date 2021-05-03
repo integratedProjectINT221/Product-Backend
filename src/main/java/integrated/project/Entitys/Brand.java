@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 //@JsonIgnoreProperties(value = "products")
 @Entity
-@Table(name="brands")
+@Table(name="Brands")
 @Getter
 @Setter
 @AllArgsConstructor
