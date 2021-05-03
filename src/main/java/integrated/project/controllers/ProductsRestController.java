@@ -41,13 +41,20 @@ public class ProductsRestController {
     }
 
     @DeleteMapping("/products/{id}")
-    public void deleteProductsById(@PathVariable String id, HttpServletResponse res) throws URISyntaxException, IOException {
+    public ResponseEntity<ResponseMessage> deleteProductsById(@PathVariable int id, HttpServletResponse res) throws URISyntaxException, IOException {
+        Product checkExist = productsJpaRepository.findByProdId(id);
+        if(checkExist == null){
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product to delete!"));
+//            throw new RuntimeException("Fail na");
+        }
           productsJpaRepository.deleteById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Delete product complete"));
 //        URI yahoo = new URI("http://www.yahoo.com");
 //        HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.setLocation(yahoo);
 //        return "forward:/asds";
-        res.sendRedirect("/redirect");
+//        res.sendRedirect("/redirect");
 //        return null;
 //        return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
@@ -58,23 +65,35 @@ public class ProductsRestController {
 ////        httpServletResponse.setStatus(302);
 //        httpServletResponse.sendRedirect("www.google.com");
 //    }
-@RequestMapping("/redirect")
-public ResponseEntity<Object> redirectToExternalUrl() throws URISyntaxException {
-    URI yahoo = new URI("http://www.yahoo.com");
-    HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.setLocation(yahoo);
-    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
-}
+//@RequestMapping("/redirect")
+//public ResponseEntity<Object> redirectToExternalUrl() throws URISyntaxException {
+//    URI yahoo = new URI("http://www.yahoo.com");
+//    HttpHeaders httpHeaders = new HttpHeaders();
+//    httpHeaders.setLocation(yahoo);
+//    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
+//}
 
     @PostMapping("/products")
     public ResponseEntity<ResponseMessage> addProduct(@RequestBody Product product){
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
-//        if(checkExist != null){
-//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already pic!"));
+        if(checkExist != null){
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
 //            throw new RuntimeException("Fail na");
-//        }
+        }
         this.productsJpaRepository.save(product);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Add product complete"));
+
+    }
+
+    @PutMapping ("/products")
+    public ResponseEntity<ResponseMessage> editProduct(@RequestBody Product product){
+        Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
+        if(checkExist == null){
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product!"));
+//            throw new RuntimeException("Fail na");
+        }
+        this.productsJpaRepository.save(product);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Edit product complete"));
 
     }
 
