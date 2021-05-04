@@ -55,6 +55,7 @@ public class ProductsRestController {
 //            throw new RuntimeException("Fail na");
         }
           productsJpaRepository.deleteById(id);
+          storageService.delete(checkExist.getImage());
 
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Delete product complete"));
 //        URI yahoo = new URI("http://www.yahoo.com");
@@ -80,7 +81,7 @@ public class ProductsRestController {
 //    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
 //}
 
-    @PostMapping("/products")
+    @PostMapping("/products2")
     public ResponseEntity<ResponseMessage> addProduct(@RequestBody Product product){
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
 //        System.out.println(this.productsJpaRepository.save(product).getProdId());
@@ -95,7 +96,7 @@ public class ProductsRestController {
 
     }
 
-    @PostMapping("/products2")
+    @PostMapping("/products")
     public ResponseEntity<ResponseMessage> addProduct2(@RequestPart Product product,@RequestParam("file") MultipartFile file) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
 //        Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
@@ -137,7 +138,7 @@ public class ProductsRestController {
         }
 //        ItemNotFoundException
         System.out.println(checkExist.getImage());
-//        this.storageService.replace(file,checkExist.getImage());
+        this.storageService.replace(file,checkExist.getImage());
         product.setImage(product.getImage().toUpperCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
 //        this.productsJpaRepository.save(product).getImage().toUpperCase(Locale.ROOT);

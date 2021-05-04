@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import integrated.project.repositories.ProductsJpaRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -19,23 +20,30 @@ import javax.annotation.PreDestroy;
 
 @Service
 public class StorageServiceImp implements StorageService{
-    private final Path root;
-//    private ProductsJpaRepository productsJpaRepository;
 
+    private  Path root ;
+//    private ProductsJpaRepository productsJpaRepository;
+//StorageProperties properties;
+
+//    public StorageServiceImp(StorageProperties properties) {
+//        this.root = Paths.get(properties.getLocation());
+//        System.out.println(this.root);
+//    }
 
     public StorageServiceImp(StorageProperties properties) {
         this.root = Paths.get(properties.getLocation());
+//        String passPath = properties.getLocation();
+//        this.root.resolve(passPath);
         System.out.println(this.root);
     }
-
-
     @Override
 //    @PostConstruct
     public void init() {
+//        this.root = Paths.get(properties.getLocation());
         try {
-            Files.createDirectory(root);
+            Files.createDirectories(this.root);
         } catch (IOException e) {
-            throw new RuntimeException("Could not initialize folder for upload!");
+            throw new RuntimeException(e.getMessage());
         }
     }
 

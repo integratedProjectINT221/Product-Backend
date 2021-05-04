@@ -7,12 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 import javax.annotation.Resource;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
-public class ProjectApplication  implements CommandLineRunner {
+public class ProjectApplication  implements CommandLineRunner{
 @Resource
 StorageServiceImp storageService;
 //@Resource
@@ -28,7 +29,13 @@ StorageServiceImp storageService;
 	@Override
 	public void run(String... arg) throws Exception {
 
-		storageService.deleteAll();
+//		storageService.deleteAll();
 		storageService.init();
 	}
+//@Override
+//public void run(String... args) throws Exception {
+//	String path = storageProps.getPath();
+//	// do your stuff here
+//}
 }
+
