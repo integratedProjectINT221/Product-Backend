@@ -130,7 +130,7 @@ public class ProductsRestController {
     }
 
     @PutMapping ("/products")
-    public ResponseEntity<ResponseMessage> editProduct(@RequestPart Product product,@RequestParam("file") MultipartFile file){
+    public ResponseEntity<ResponseMessage> editProduct(@RequestPart Product product,@RequestParam(value = "file",required = false) MultipartFile file){
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
         if(checkExist == null){
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product!"));
@@ -138,13 +138,16 @@ public class ProductsRestController {
         }
 //        ItemNotFoundException
         System.out.println(checkExist.getImage());
-        this.storageService.replace(file,checkExist.getImage());
+        if(file != null){
+        this.storageService.replace(file,checkExist.getImage());}
         product.setImage(product.getImage().toUpperCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
 //        this.productsJpaRepository.save(product).getImage().toUpperCase(Locale.ROOT);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Edit product complete"));
 
     }
+
+
 
 
 }
