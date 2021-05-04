@@ -1,24 +1,31 @@
 package integrated.project.controllers;
 
 //import integrated.project.models.Color;
+//import javax.jcr.ItemNotFoundException
 import integrated.project.Entitys.Product;
 import integrated.project.repositories.ProductsJpaRepository;
 import integrated.project.services.ResponseMessage;
+import integrated.project.services.StorageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Locale;
 
 @CrossOrigin(origins = {"http://localhost:8082"})
 @RestController
 public class ProductsRestController {
     private ProductsJpaRepository productsJpaRepository;
+    @Autowired
+    StorageService storageService;
 
     public ProductsRestController(ProductsJpaRepository productsJpaRepository) {
         this.productsJpaRepository = productsJpaRepository;
@@ -76,23 +83,64 @@ public class ProductsRestController {
     @PostMapping("/products")
     public ResponseEntity<ResponseMessage> addProduct(@RequestBody Product product){
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
+//        System.out.println(this.productsJpaRepository.save(product).getProdId());
+//        System.out.println(checkExist.getProdId());
         if(checkExist != null){
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
 //            throw new RuntimeException("Fail na");
         }
+        product.setImage(product.getImage().toUpperCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Add product complete"));
 
     }
 
+    @PostMapping("/products2")
+    public ResponseEntity<ResponseMessage> addProduct2(@RequestPart Product product,@RequestParam("file") MultipartFile file) throws IOException {
+        Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
+//        Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
+        if (checkExist != null) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
+//            throw new RuntimeException("Fail na");
+        }
+//        System.out.println(this.productsJpaRepository.save(product));
+//        if(this.storageService.save(file)==true){
+////            this.storageService.save(file);
+//            System.out.println(this.productsJpaRepository.save(product));
+//            this.productsJpaRepository.save(product);
+//
+//            System.out.println(productsJpaRepository.findByProdId(product.getProdId()));
+//            if(productsJpaRepository.findByProdId(product.getProdId())==null){
+//                this.storageService.delete(file);
+//            }
+//        }
+//        this.productsJpaRepository.save(product);
+//        this.storageService.save(file);
+//        if (productsJpaRepository.findByProdId(product.getProdId()) == null) {
+//            this.storageService.delete(file);
+//        }
+        if(this.storageService.save(file)==true){
+            product.setImage(product.getImage().toUpperCase(Locale.ROOT));
+            this.productsJpaRepository.save(product);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Add product complete"));
+
+    }
+
     @PutMapping ("/products")
-    public ResponseEntity<ResponseMessage> editProduct(@RequestBody Product product){
+    public ResponseEntity<ResponseMessage> editProduct(@RequestPart Product product,@RequestParam("file") MultipartFile file){
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
         if(checkExist == null){
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product!"));
 //            throw new RuntimeException("Fail na");
         }
+//        ItemNotFoundException
+        System.out.println(checkExist.getImage());
+//        this.storageService.replace(file,checkExist.getImage());
+        product.setImage(product.getImage().toUpperCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
+//        this.productsJpaRepository.save(product).getImage().toUpperCase(Locale.ROOT);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Edit product complete"));
 
     }

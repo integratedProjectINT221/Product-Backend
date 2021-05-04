@@ -25,7 +25,7 @@ public class StorageServiceImp implements StorageService{
 
     public StorageServiceImp(StorageProperties properties) {
         this.root = Paths.get(properties.getLocation());
-
+        System.out.println(this.root);
     }
 
 
@@ -40,7 +40,7 @@ public class StorageServiceImp implements StorageService{
     }
 
     @Override
-    public void save(MultipartFile file) {
+    public boolean save(MultipartFile file) {
         try {
 //            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
 //                System.out.println(file.getOriginalFilename());
@@ -48,6 +48,26 @@ public class StorageServiceImp implements StorageService{
 //                    System.out.println(productsJpaRepository.findAll().get(i).getImage());
 //                    if(productsJpaRepository.findByProdName(file.getOriginalFilename()).getImage() == file.getOriginalFilename()){
                     Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+                    return  true;
+//                }
+//            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean replace(MultipartFile file,String oldImage) {
+        try {
+//            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
+//                System.out.println(file.getOriginalFilename());
+//                if(file.getOriginalFilename() == productsJpaRepository.findAll().get(i).getImage()){
+//                    System.out.println(productsJpaRepository.findAll().get(i).getImage());
+//                    if(productsJpaRepository.findByProdName(file.getOriginalFilename()).getImage() == file.getOriginalFilename()){
+            Files.delete(this.root.resolve(oldImage));
+            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+            return  true;
 //                }
 //            }
 
@@ -78,6 +98,10 @@ public class StorageServiceImp implements StorageService{
         FileSystemUtils.deleteRecursively(root.toFile());
     }
 
+    @Override
+    public void delete(String oldImage) throws IOException {
+        FileSystemUtils.deleteRecursively(this.root.resolve(oldImage));
+    }
     @Override
     public Stream<Path> loadAll() {
         try {
