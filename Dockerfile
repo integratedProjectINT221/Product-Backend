@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM openjdk:16-alpine
 
 EXPOSE 8081
 
