@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
-@CrossOrigin(origins = {"http://172.20.0.4:8082"})
+//@CrossOrigin(origins = {"http://172.20.0.4:8082"})
 @RestController
 public class ProductsRestController {
     private ProductsJpaRepository productsJpaRepository;
