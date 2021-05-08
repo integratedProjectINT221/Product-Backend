@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 
 @RestController
-@CrossOrigin("http://localhost:8082")
+@CrossOrigin(origins = {"http://docker_vuejs:8082"})
 public class FileController {
 
     @Autowired

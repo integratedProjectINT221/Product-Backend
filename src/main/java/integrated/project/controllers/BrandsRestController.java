@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:8082"})
+@CrossOrigin(origins = {"http://docker_vuejs:8082"})
 @RestController
 public class BrandsRestController {
 
