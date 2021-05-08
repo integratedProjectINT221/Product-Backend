@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 
 @RestController
-@CrossOrigin(origins = {"http://172.20.0.4:8082"})
+@CrossOrigin(origins = {"http://104.215.183.81:8082"})
 public class FileController {
 
     @Autowired
