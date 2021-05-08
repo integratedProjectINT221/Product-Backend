@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
-//@CrossOrigin(origins = {"http://172.20.0.4:8082"})
+@CrossOrigin(origins = {"http://docker_vuejs:8082"})
 @RestController
 public class ProductsRestController {
     private ProductsJpaRepository productsJpaRepository;
@@ -90,7 +90,7 @@ public class ProductsRestController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
 //            throw new RuntimeException("Fail na");
         }
-        product.setImage(product.getImage().toUpperCase(Locale.ROOT));
+        product.setImage(product.getImage().toLowerCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Add product complete"));
 
@@ -121,7 +121,7 @@ public class ProductsRestController {
 //            this.storageService.delete(file);
 //        }
         if(this.storageService.save(file)==true){
-            product.setImage(product.getImage().toUpperCase(Locale.ROOT));
+            product.setImage(product.getImage().toLowerCase(Locale.ROOT));
             this.productsJpaRepository.save(product);
         }
 
@@ -140,7 +140,7 @@ public class ProductsRestController {
         System.out.println(checkExist.getImage());
         if(file != null){
         this.storageService.replace(file,checkExist.getImage());}
-        product.setImage(product.getImage().toUpperCase(Locale.ROOT));
+        product.setImage(product.getImage().toLowerCase(Locale.ROOT));
         this.productsJpaRepository.save(product);
 //        this.productsJpaRepository.save(product).getImage().toUpperCase(Locale.ROOT);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Edit product complete"));
