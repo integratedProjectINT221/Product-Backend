@@ -12,7 +12,7 @@ import integrated.project.repositories.ColorsJpaRepository;
 import java.util.List;
 
 //@CrossOrigin(origins = {"http://localhost:8082"})
-@CrossOrigin(origins = {"http://docker_vuejs:8082"})
+@CrossOrigin(origins = {"http://172.20.0.4:8082"})
 @RestController
 public class ColorsRestController {
     private ColorsJpaRepository colorsJpaRepository;
