@@ -105,7 +105,8 @@ public class ProductsRestController {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
 //            throw new RuntimeException("Fail na");
         }
-        if (product.getImage() != file.getOriginalFilename()){
+        System.out.println(product.getImage() + file.getOriginalFilename());
+        if (!product.getImage().equals(file.getOriginalFilename())){
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Cant save because filename and product image name is not the same!"));
         }
 //        System.out.println(this.productsJpaRepository.save(product));
@@ -144,7 +145,7 @@ public class ProductsRestController {
 //        ItemNotFoundException
         System.out.println(checkExist.getImage());
         if(file != null){
-            if (product.getImage() != file.getOriginalFilename()){
+            if (!product.getImage().equals(file.getOriginalFilename())){
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Cant save because filename and product image name is not the same!"));
             }
 //        this.storageService.replace(file,checkExist.getImage());
