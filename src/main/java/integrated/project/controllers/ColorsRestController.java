@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/colors")
+@RequestMapping("/api")
 public class ColorsRestController {
     private ColorsJpaRepository colorsJpaRepository;
 
@@ -21,7 +21,7 @@ public class ColorsRestController {
         this.colorsJpaRepository = colorsJpaRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/show/colors")
     public List<Color> getColors() {
         return colorsJpaRepository.findAll();
     }

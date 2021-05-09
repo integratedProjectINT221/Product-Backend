@@ -19,7 +19,7 @@ import java.util.List;
 
 //@CrossOrigin(origins = {"http://localhost:8082"})
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api")
 public class ProductsRestController {
     private ProductsJpaRepository productsJpaRepository;
     @Autowired
@@ -29,23 +29,23 @@ public class ProductsRestController {
         this.productsJpaRepository = productsJpaRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/show/products")
     public List<Product> getProducts() {
         return productsJpaRepository.findAll();
     }
 
-    @GetMapping("/productsByBrand/{id}")
+    @GetMapping("/show/products/brand/{id}")
     public List<Product> getProductsByBrand(@PathVariable String id) {
 
         return productsJpaRepository.findByBrandBrandId(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/show/product/{id}")
     public Product getProductsById(@PathVariable int id) {
         return productsJpaRepository.findByProdId(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/product/{id}")
     public ResponseEntity<ResponseMessage> deleteProductsById(@PathVariable int id, HttpServletResponse res) throws URISyntaxException, IOException {
         Product checkExist = productsJpaRepository.findByProdId(id);
         if(checkExist == null){
@@ -60,7 +60,7 @@ public class ProductsRestController {
 
 
 
-    @PostMapping("")
+    @PostMapping("/create/product")
     public ResponseEntity<ResponseMessage> addProduct(@RequestPart Product product,@RequestParam("file") MultipartFile file) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
 
@@ -82,7 +82,7 @@ public class ProductsRestController {
 
     }
 
-    @PutMapping ("")
+    @PutMapping ("/edit/product")
     public ResponseEntity<ResponseMessage> editProduct(@RequestPart Product product,@RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
         if(checkExist == null){

@@ -20,14 +20,14 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping("/api")
 
 public class FileController {
 
     @Autowired
     StorageService storageService;
 
-    @PostMapping("/upload")
+    @PostMapping("/create/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
         try {
@@ -43,7 +43,7 @@ public class FileController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/show/files")
     public ResponseEntity<List<FileInfo>> getListFiles() {
         List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
             String filename = path.getFileName().toString();
@@ -56,7 +56,7 @@ public class FileController {
         return ResponseEntity.status(HttpStatus.OK).body(fileInfos);
     }
 
-    @GetMapping("/{filename:.+}")
+    @GetMapping("/show/file/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException {
         Resource file = storageService.load(filename);

@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/brands")
+@RequestMapping("/api")
 public class BrandsRestController {
 
     private BrandsJpaRepository brandsJpaRepository;
@@ -21,7 +21,7 @@ public class BrandsRestController {
         this.brandsJpaRepository = brandsJpaRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/show/brands")
     public List<Brand> getBrands(){
         return this.brandsJpaRepository.findAll();
     }
