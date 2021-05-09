@@ -23,24 +23,14 @@ import javax.annotation.PreDestroy;
 public class StorageServiceImp implements StorageService{
 
     private  Path root ;
-//    private ProductsJpaRepository productsJpaRepository;
-//StorageProperties properties;
 
-//    public StorageServiceImp(StorageProperties properties) {
-//        this.root = Paths.get(properties.getLocation());
-//        System.out.println(this.root);
-//    }
 
     public StorageServiceImp(StorageProperties properties) {
         this.root = Paths.get(properties.getLocation());
-//        String passPath = properties.getLocation();
-//        this.root.resolve(passPath);
-        System.out.println(this.root);
+
     }
     @Override
-//    @PostConstruct
     public void init() {
-//        this.root = Paths.get(properties.getLocation());
         try {
             Files.createDirectories(this.root);
         } catch (IOException e) {
@@ -51,15 +41,8 @@ public class StorageServiceImp implements StorageService{
     @Override
     public boolean save(MultipartFile file) {
         try {
-//            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
-//                System.out.println(file.getOriginalFilename());
-//                if(file.getOriginalFilename() == productsJpaRepository.findAll().get(i).getImage()){
-//                    System.out.println(productsJpaRepository.findAll().get(i).getImage());
-//                    if(productsJpaRepository.findByProdName(file.getOriginalFilename()).getImage() == file.getOriginalFilename()){
                     Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
                     return  true;
-//                }
-//            }
 
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
@@ -69,16 +52,9 @@ public class StorageServiceImp implements StorageService{
     @Override
     public boolean replace(MultipartFile file,String oldImage) {
         try {
-//            for (int i = 0; i < productsJpaRepository.findAll().size(); i++) {
-//                System.out.println(file.getOriginalFilename());
-//                if(file.getOriginalFilename() == productsJpaRepository.findAll().get(i).getImage()){
-//                    System.out.println(productsJpaRepository.findAll().get(i).getImage());
-//                    if(productsJpaRepository.findByProdName(file.getOriginalFilename()).getImage() == file.getOriginalFilename()){
             Files.delete(this.root.resolve(oldImage));
             Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
             return  true;
-//                }
-//            }
 
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
@@ -102,7 +78,6 @@ public class StorageServiceImp implements StorageService{
     }
 
     @Override
-//    @PreDestroy
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(root.toFile());
     }

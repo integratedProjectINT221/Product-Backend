@@ -6,13 +6,14 @@ import integrated.project.Entitys.Brand;
 import integrated.project.repositories.BrandsJpaRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//@CrossOrigin(origins = {"http://localhost:8082"})
-//@CrossOrigin(origins = {"http://172.20.0.4:8082"})
+
 @RestController
+@RequestMapping("/api/brands")
 public class BrandsRestController {
 
     private BrandsJpaRepository brandsJpaRepository;
@@ -20,7 +21,7 @@ public class BrandsRestController {
         this.brandsJpaRepository = brandsJpaRepository;
     }
 
-    @GetMapping("/brands")
+    @GetMapping("")
     public List<Brand> getBrands(){
         return this.brandsJpaRepository.findAll();
     }

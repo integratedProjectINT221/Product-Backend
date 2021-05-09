@@ -1,4 +1,4 @@
-package integrated.project.services;
+package integrated.project.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package integrated.project.exception;
 
-import integrated.project.services.ResponseMessage;
+import integrated.project.models.ResponseMessage;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 

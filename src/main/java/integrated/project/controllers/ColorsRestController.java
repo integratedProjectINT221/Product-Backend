@@ -11,9 +11,9 @@ import integrated.project.repositories.ColorsJpaRepository;
 
 import java.util.List;
 
-//@CrossOrigin(origins = {"http://localhost:8082"})
-//@CrossOrigin(origins = {"http://104.215.183.81:8082"})
+
 @RestController
+@RequestMapping("/api/colors")
 public class ColorsRestController {
     private ColorsJpaRepository colorsJpaRepository;
 
@@ -21,13 +21,10 @@ public class ColorsRestController {
         this.colorsJpaRepository = colorsJpaRepository;
     }
 
-    @GetMapping("/colors")
+    @GetMapping("")
     public List<Color> getColors() {
         return colorsJpaRepository.findAll();
     }
 
-//    @PostMapping("/colors")
-//    public Color addColor(@RequestBody Color color){
-//        return this.colorsJpaRepository.save(color);
-//    }
+
 }

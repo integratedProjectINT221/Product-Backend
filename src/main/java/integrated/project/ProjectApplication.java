@@ -16,12 +16,7 @@ import javax.annotation.Resource;
 public class ProjectApplication  implements CommandLineRunner{
 @Resource
 StorageServiceImp storageService;
-//@Resource
-//StorageProperties storageProperties;
-//
-//public ProjectApplication (StorageProperties storageProperties){
-//	this.storageProperties = storageProperties;
-//}
+
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 	}
@@ -32,10 +27,6 @@ StorageServiceImp storageService;
 //		storageService.deleteAll();
 		storageService.init();
 	}
-//@Override
-//public void run(String... args) throws Exception {
-//	String path = storageProps.getPath();
-//	// do your stuff here
-//}
+
 }
 
