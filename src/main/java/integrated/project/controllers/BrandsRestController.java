@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://104.215.183.81:8082"})
+//@CrossOrigin(origins = {"http://localhost:8082"})
+//@CrossOrigin(origins = {"http://172.20.0.4:8082"})
 @RestController
 public class BrandsRestController {
 

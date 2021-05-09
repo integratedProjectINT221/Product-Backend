@@ -20,7 +20,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Locale;
 
-@CrossOrigin(origins = {"http://104.215.183.81:8082"})
+//@CrossOrigin(origins = {"http://localhost:8082"})
 @RestController
 public class ProductsRestController {
     private ProductsJpaRepository productsJpaRepository;
@@ -30,6 +30,7 @@ public class ProductsRestController {
     public ProductsRestController(ProductsJpaRepository productsJpaRepository) {
         this.productsJpaRepository = productsJpaRepository;
     }
+//    @CrossOrigin(origins = {"http://localhost:8082"})
     @GetMapping("/products")
     public List<Product> getProducts() {
         return productsJpaRepository.findAll();
@@ -95,7 +96,7 @@ public class ProductsRestController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Add product complete"));
 
     }
-
+//    @CrossOrigin(origins = {"http://localhost:8082"})
     @PostMapping("/products")
     public ResponseEntity<ResponseMessage> addProduct2(@RequestPart Product product,@RequestParam("file") MultipartFile file) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
