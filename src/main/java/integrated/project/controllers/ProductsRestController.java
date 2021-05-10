@@ -3,6 +3,8 @@ package integrated.project.controllers;
 //import integrated.project.models.Color;
 //import javax.jcr.ItemNotFoundException
 import integrated.project.Entitys.Product;
+import integrated.project.exception.ExceptionResponse;
+import integrated.project.exception.ProductsException;
 import integrated.project.repositories.ProductsJpaRepository;
 import integrated.project.models.ResponseMessage;
 import integrated.project.services.StorageService;
@@ -46,10 +48,11 @@ public class ProductsRestController {
     }
 
     @DeleteMapping("/delete/product/{id}")
-    public ResponseEntity<ResponseMessage> deleteProductsById(@PathVariable int id, HttpServletResponse res) throws URISyntaxException, IOException {
+    public ResponseEntity<ResponseMessage> deleteProductsById(@PathVariable int id) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(id);
         if(checkExist == null){
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product to delete!"));
+//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product to delete!"));
+            throw new ProductsException(ExceptionResponse.ERROR_CODE.ITEM_DOES_NOT_EXIST,"Not have this product to delete!");
         }
           productsJpaRepository.deleteById(id);
           storageService.delete(checkExist.getImage());
@@ -61,16 +64,17 @@ public class ProductsRestController {
 
 
     @PostMapping("/create/product")
-    public ResponseEntity<ResponseMessage> addProduct(@RequestPart Product product,@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<ResponseMessage> addProduct(@RequestPart Product product,@RequestParam("file") MultipartFile file) {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
 
         if (checkExist != null) {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
-
+//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Already product!"));
+            throw new ProductsException(ExceptionResponse.ERROR_CODE.ITEM_ALREADY_EXIST,"Already have this product!");
         }
 
         if (!product.getImage().equals(file.getOriginalFilename())){
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Cant save because filename and product image name is not the same!"));
+//            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Cant save because filename and product image name is not the same!"));
+            throw new ProductsException(ExceptionResponse.ERROR_CODE.NAME_IS_CONFLICT,"Cant save because filename and product image name is not the same!");
         }
 
         if(this.storageService.save(file)==true){
@@ -86,7 +90,7 @@ public class ProductsRestController {
     public ResponseEntity<ResponseMessage> editProduct(@RequestPart Product product,@RequestParam(value = "file",required = false) MultipartFile file) throws IOException {
         Product checkExist = productsJpaRepository.findByProdId(product.getProdId());
         if(checkExist == null){
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Not have this product!"));
+            throw new ProductsException(ExceptionResponse.ERROR_CODE.ITEM_DOES_NOT_EXIST,"Not have this product to edit!");
 //            throw new RuntimeException("Fail na");
         }
 
@@ -94,7 +98,7 @@ public class ProductsRestController {
 
         if(file != null){
             if (!product.getImage().equals(file.getOriginalFilename())){
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Cant save because filename and product image name is not the same!"));
+                throw new ProductsException(ExceptionResponse.ERROR_CODE.NAME_IS_CONFLICT,"Cant save because filename and product image name is not the same!");
             }
 
             this.storageService.delete(checkExist.getImage());

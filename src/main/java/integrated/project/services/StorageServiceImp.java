@@ -49,17 +49,17 @@ public class StorageServiceImp implements StorageService{
         }
     }
 
-    @Override
-    public boolean replace(MultipartFile file,String oldImage) {
-        try {
-            Files.delete(this.root.resolve(oldImage));
-            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
-            return  true;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-        }
-    }
+//    @Override
+//    public boolean replace(MultipartFile file,String oldImage) {
+//        try {
+//            Files.delete(this.root.resolve(oldImage));
+//            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
+//            return  true;
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+//        }
+//    }
 
     @Override
     public Resource load(String filename) {

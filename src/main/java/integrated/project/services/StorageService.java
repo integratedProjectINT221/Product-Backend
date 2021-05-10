@@ -18,7 +18,7 @@ public interface StorageService {
 
     public void delete(String oldImage) throws IOException;
 
-    public boolean replace(MultipartFile file,String oldImage);
+//    public boolean replace(MultipartFile file,String oldImage);
 
     public Stream<Path> loadAll();
 }
